@@ -8,17 +8,17 @@ from telebot.states.asyncio import StateMiddleware
 
 from config import settings
 from src.handlers.cancel import cancel_command_handler
-from src.handlers.delete_repo import delete_repo_command_handler, get_delete_repo_name, get_delete_owner_name
+from src.handlers.crud_repo.delete_repo import delete_repo_command_handler, get_delete_repo_name, get_delete_owner_name
 from src.schedule import stop_app_lock, stop_event
 from src.database.repo import close_db, init_db
 from src.filters.admin_filter import AdminFilter
 from src.filters.login_filter import LoginFilter
-from src.handlers.add_repo import add_repo_command_handler, get_repo_name, get_owner_name
+from src.handlers.crud_repo.add_repo import add_repo_command_handler, get_repo_name, get_owner_name
 from src.handlers.core import Handler, Ignore
 from src.handlers.off_notify import off_notify_command_handler
 from src.handlers.on_notify import on_notify_command_handler
 from src.handlers.remember_me import remember_me_command_handler
-from src.handlers.show_repos import show_repos_command_handler
+from src.handlers.crud_repo.show_repos import show_repos_command_handler
 from src.handlers.start import start_command_handler
 from src.handlers.states.repos import RepoCreateState, RepoDeleteState
 from src.integrations.rest import http_repository
@@ -128,7 +128,7 @@ async def bot_task():
 async def start():
     if settings.DEBUG:
         logger.warning("-" * 100)
-        logger.warning("Debug mode enabled. ADMIN FILTER OFF!")
+        logger.warning(" " * 30 + "Debug mode enabled. ADMIN FILTER OFF!")
         logger.warning("-" * 100)
         # Сделал так, чтобы можно было успеть прочитать
         await asyncio.sleep(1)

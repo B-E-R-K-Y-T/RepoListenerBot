@@ -5,14 +5,8 @@ from telebot.states.asyncio import StateContext
 from telebot.types import Message
 
 from src.database.repo import delete_repo, get_user_repos
+from src.handlers.crud_repo.model import Repo
 from src.handlers.states.repos import RepoDeleteState
-
-
-class Repo:
-    def __init__(self, repo: Optional[str], owner: Optional[str]):
-        self.repo = repo
-        self.owner = owner
-
 
 repos: dict[int, Repo] = {}
 
