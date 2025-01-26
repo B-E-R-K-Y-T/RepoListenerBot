@@ -13,7 +13,7 @@ async def show_repos_command_handler(message: Message, bot: AsyncTeleBot):
         return
 
     formated_repos = "\n".join(
-        f"{i + 1}-й: repo: '{repo.repo}', owner: '{repo.owner}'"
+        f"\n{i + 1}-й:\n\trepo: '{repo.repo}', \n\towner: '{repo.owner}', \n\trelease: '{repo.current_version}'"
         for i, repo in enumerate(repos)
     )
 

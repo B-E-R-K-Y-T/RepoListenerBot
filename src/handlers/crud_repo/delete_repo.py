@@ -1,5 +1,3 @@
-from typing import Optional
-
 from telebot.async_telebot import AsyncTeleBot
 from telebot.states.asyncio import StateContext
 from telebot.types import Message
