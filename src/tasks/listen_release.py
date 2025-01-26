@@ -34,7 +34,8 @@ async def release_listen():
             for user_repo in user_repos:
                 if (
                     last_release.owner == user_repo.owner
-                    and last_release.repo == user_repo.repo
+                    and
+                    last_release.repo == user_repo.repo
                 ):
                     if last_release.tag_name != user_repo.current_version:
                         logger.info(f"New release: {last_release.tag_name}")
