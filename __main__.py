@@ -8,4 +8,4 @@ async def main():
 
 
 if __name__ == "__main__":
-    asyncio.run(start())
+    asyncio.run(main())

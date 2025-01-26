@@ -17,4 +17,4 @@ async def show_repos_command_handler(message: Message, bot: AsyncTeleBot):
         for i, repo in enumerate(repos)
     )
 
-    await bot.send_message(message.chat.id, f"Репозитории:\n{formated_repos}")
+    await bot.send_message(message.chat.id, f"Репозитории:\n\n{formated_repos}")
