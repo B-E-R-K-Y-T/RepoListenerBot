@@ -15,16 +15,6 @@ class TaskManager:
         for task in self.unstarted_tasks:
             self.active_tasks.append(asyncio.create_task(task))
 
-    async def _task_waiter(self, task: Task):
-        try:
-            await asyncio.wait_for(task, timeout=self.timeout)
-        except asyncio.TimeoutError:
-            logger.warning(f"Task '{task}' timeout")
-        except Exception as e:
-            logger.error(f"Task '{task}' error: {e}")
-        else:
-            logger.info(f"Task '{task}' finished")
-
     async def wait_for_tasks(self):
         logger.info(
             f"Start waiting for {len(self.active_tasks)} tasks... Timeout: {self.timeout} sec."
@@ -35,3 +25,13 @@ class TaskManager:
                 tg.create_task(self._task_waiter(task))
 
         logger.info("All tasks finished")
+
+    async def _task_waiter(self, task: Task):
+        try:
+            await asyncio.wait_for(task, timeout=self.timeout)
+        except asyncio.TimeoutError:
+            logger.warning(f"Task '{task}' stopped by timeout")
+        except Exception as e:
+            logger.error(f"Task '{task}' stopped by error: {e}")
+        else:
+            logger.info(f"Task '{task}' stopped by finished")
