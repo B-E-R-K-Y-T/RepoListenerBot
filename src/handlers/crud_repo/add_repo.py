@@ -53,7 +53,7 @@ async def get_owner_name(message: Message, bot: AsyncTeleBot, state: StateContex
 
 
 async def _process_repo(repo: Repo, message: Message, bot: AsyncTeleBot):
-    if await repo_exists(repo.repo, repo.owner):
+    if await repo_exists(repo.repo.lower(), repo.owner.lower()):
         logger.info(f"Repo {repo.repo} already exists")
         await bot.reply_to(message, f"Репозиторий '{repo.repo}' уже существует 🖕🏻")
 
@@ -78,8 +78,8 @@ async def _save_repo(repo: Repo, message: Message, bot: AsyncTeleBot, releases: 
     async with asyncio.TaskGroup() as tg:
         tg.create_task(
             add_repo(
-                repo.repo,
-                repo.owner,
+                repo.repo.lower(),
+                repo.owner.lower(),
                 user=await get_user_by_telegram_id(message.from_user.id),
                 current_version=releases[0].name
             )

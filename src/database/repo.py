@@ -60,6 +60,10 @@ async def repo_exists(repo: str, owner: str) -> bool:
     return await Repo.filter(repo=repo, owner=owner).exists()
 
 
+async def get_repo_by_name(repo: str, owner: str) -> Optional[Repo]:
+    return await Repo.filter(repo=repo, owner=owner).first()
+
+
 async def add_repo(
     repo: str,
     owner: str,
