@@ -5,7 +5,7 @@ from src.models.release import Release
 from src.services.log import logger
 
 
-class HttpRepository:
+class HttpClient:
     def __init__(self):
         self.session = None
         self.headers = {
@@ -17,9 +17,7 @@ class HttpRepository:
         self.session = session
 
     async def get_releases(self, owner: str, repo: str) -> list[Release]:
-        url = "https://api.github.com/repos/{owner}/{repo}/releases".format(
-            owner=owner, repo=repo
-        )
+        url = f"https://api.github.com/repos/{owner}/{repo}/releases"
 
         async with self.session.get(url, headers=self.headers) as response:
             if response.ok:
@@ -39,4 +37,4 @@ class HttpRepository:
         await self.session.close()
 
 
-http_repository = HttpRepository()
+http_client = HttpClient()

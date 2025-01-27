@@ -3,7 +3,7 @@ import asyncio
 from config import settings
 from src.database.repo import get_all_repos, get_user_repos, get_all_users
 from src.models.release import Release
-from src.integrations.rest import http_repository
+from src.integrations.rest import http_client
 from src.services.log import logger
 from src.task_queues import NotificationEventRelease, notification_event_queue
 from src.tasks.runner import task_runner
@@ -17,7 +17,7 @@ async def release_listen():
     tasks = []
 
     for repo in current_repos:
-        tasks.append(http_repository.get_releases(repo.owner, repo.repo))
+        tasks.append(http_client.get_releases(repo.owner, repo.repo))
 
     repo_releases: list[list[Release]] = await asyncio.gather(*tasks)
     users = await get_all_users()

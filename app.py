@@ -21,7 +21,7 @@ from src.handlers.remember_me import remember_me_command_handler
 from src.handlers.crud_repo.show_repos import show_repos_command_handler
 from src.handlers.start import start_command_handler
 from src.handlers.states.repos import RepoCreateState, RepoDeleteState
-from src.integrations.rest import http_repository
+from src.integrations.rest import http_client
 from src.middlewares.antiflood import AntiFloodMiddleware
 from src.services.log import logger
 from src.services.task_manager import TaskManager
@@ -105,7 +105,7 @@ def init_handlers():
 
 
 def init_http():
-    http_repository.set_session(aiohttp.ClientSession())
+    http_client.set_session(aiohttp.ClientSession())
 
 
 def init_tasks():
@@ -149,6 +149,6 @@ async def start():
 
     logger.info("App stopping...")
     await wait_for_tasks()
-    await http_repository.close()
+    await http_client.close()
     await close_db()
     logger.info("App stopped.")
