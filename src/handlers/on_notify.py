@@ -2,9 +2,12 @@ from telebot.async_telebot import AsyncTeleBot
 from telebot.types import Message
 
 from src.database.repo import get_user_by_telegram_id, update_user, add_user
+from src.services.log import logger
 
 
 async def on_notify_command_handler(message: Message, bot: AsyncTeleBot):
+    logger.info(f"User {message.from_user.id} on notify")
+
     user = await get_user_by_telegram_id(message.from_user.id)
 
     if user is None:

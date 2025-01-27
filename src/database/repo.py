@@ -25,6 +25,10 @@ async def get_user_by_telegram_id(telegram_id: int) -> Optional[User]:
     return await User.filter(telegram_id=telegram_id).first()
 
 
+async def user_exists(telegram_id: int) -> bool:
+    return await User.filter(telegram_id=telegram_id).exists()
+
+
 async def get_all_users() -> List[User]:
     return await User.all()
 
@@ -43,6 +47,17 @@ async def delete_user(telegram_id: int) -> None:
 
     if user:
         await user.delete()
+
+async def get_repo_by_id(repo_id: int) -> Optional[Repo]:
+    return await Repo.filter(id=repo_id).first()
+
+
+async def repo_exists_by_id(repo_id: int) -> bool:
+    return await Repo.filter(id=repo_id).exists()
+
+
+async def repo_exists(repo: str, owner: str) -> bool:
+    return await Repo.filter(repo=repo, owner=owner).exists()
 
 
 async def add_repo(

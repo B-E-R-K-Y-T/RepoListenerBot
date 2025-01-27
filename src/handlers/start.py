@@ -1,8 +1,12 @@
 from telebot.async_telebot import AsyncTeleBot
 from telebot.types import Message
 
+from src.services.log import logger
+
 
 async def start_command_handler(message: Message, bot: AsyncTeleBot):
+    logger.info(f"User {message.from_user.id} started the bot")
+
     welcome_message = """
 Приветствуем вас в боте, который уведомляет о новых релизах на GitHub! 🎉
 
